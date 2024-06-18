@@ -1,0 +1,38 @@
+.Formulario{
+    color: rgb(13, 13, 238);
+    /* align-self: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* tamaños */
+    width: 100%;
+    height: 350px;
+    /* margin: 15px; */
+    
+    flex-direction: column;
+
+}
+.Label{
+    margin-top: 5%;
+    text-align: center;
+    color: black;
+    
+    
+
+}
+.Contenido{
+    /* margin: 30px; */
+    /* margin-top: 20%; */
+    width: 50%;
+    background-color: #93DFDA  ;
+    text-align: center;
+    height: 90%;
+    padding: 30px;
+}
+
+.Envio:focus{
+    width: 100px;
+    height: 30px;
+    
+}
+

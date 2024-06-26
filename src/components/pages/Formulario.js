@@ -1,79 +1,51 @@
 import React from "react";
-import style from "../style/Formulario.css"
-// import { Form } from "react-router-dom";
+import Formu from "../Formu";
+import Card from "../Card";
 
-export default class Formu extends React.Component {
-    state={}
-    handleSubmit= e =>{
-        e.preventDefault()
-        console.log(this.state)
-    }
-    handleChange = e => {
-        this.setState({[e.target.name]:e.target.value})
-        // console.log(`${e.target.name}:${e.target.value}`)
-        // let primerState={}
-        // primerState[e.target.name]=e.target.value
-        // this.setState(primerState)
-    }
-    render() {
-        return (
-            //"Hola"
+export default class Formulario extends React.Component {
+  state = {
+    form: {
+      nombre: "",
+      descripcion: "",
+      img: "",
+      color: "",
+    },
+  };
+  handleChange = (e) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value
+      }
+    })
+  };
+  handleSumit = async (e) => {
+    e.preventDefault();
 
-            <div className="Formulario">
-                <form className="Contenido" action="post"
-                    onSubmit={this.handleSubmit}
-                >
-                    <label className="Label"></label>
-                    <strong>Nombre</strong>
-                    <br></br>
-                    <input type="text"
-                        className="Nombre"
-                        placeholder="Nombre"
-                        name="title"
-                        onChange={this.handleChange}
-                        value={this.state.title}
-                    //   onChange={onChange}
-                    //   value={form.title}
-                    /><br></br>
-                    <br></br>
-                    <label className="Label"></label>
-                    <strong>Descripcion</strong>
-                    <br></br>
-                    <input type="text"
-                        className="Descripcion"
-                        placeholder="Descripcion"
-                        name="Descripcion"
-                        onChange={this.handleChange}
-                        value={this.state.Descripcion}
-                    /><br></br>
-                    <br></br>
-                    <label className="Label"></label>
-                    <strong>Imagen</strong>
-                    <br></br>
-                    <br></br>
-                    <input type="file"
-                        className="Imagen"
-                        onChange={this.handleChange}
-                        value={this.state.Imagen}
-                    /><br></br>
-                    <br></br>
-                    <label className="Label"></label>
-                    <strong>Color</strong>
-                    <br></br>
-                    <input type="text"
-                        className="Color"
-                        placeholder="Color"
-                        name="Color"
-                        onChange={this.handleChange}
-                        value={this.state.Color}
-                    /><br></br>
-                    <br></br>
-                    <input className="Envio"
-                        type="submit"
-                        value={"Enviar"} /><br></br>
-                        onChange={this.handleChange}
-                </form>
-            </div>
-        )
-    }
+    try {
+      let config = {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.state.form),
+      };
+      let res = await fetch("http://localhost:8000/api/info", config);
+      let json = await res.json();
+      console.log(json);
+    } catch (error) {}
+  };
+  render() {
+    return (
+      <div>
+        <Formu
+          onChange={this.handleChange}
+          form={this.state.form}
+          onSubmit={this.handleChange}
+        />
+        <Card {...this.state.form} />
+      </div>
+    );
+  }
 }

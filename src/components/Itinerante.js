@@ -7,6 +7,7 @@ export default function Iteracion(props){
             {props.chao.map((chao)=>{   
                 return(
                     <Card
+                    key={chao.id}
                     nombre={chao.nombre}
                     descripcion={chao.descripcion}
                     img={chao.img}
